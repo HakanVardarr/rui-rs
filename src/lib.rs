@@ -1,8 +1,9 @@
-mod default_ui;
+mod controller;
+
 mod events;
 pub mod keycode;
-mod ui;
+mod terminal;
 
+pub use controller::Controller;
 pub use crossterm::Result;
-pub use default_ui::default_ui;
-pub use ui::Ui;
+pub use terminal::Terminal;

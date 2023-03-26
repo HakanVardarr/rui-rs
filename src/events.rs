@@ -1,4 +1,4 @@
-use super::ui::Func;
+use super::controller::Func;
 use crossterm::event::KeyCode;
 
 pub struct Events {
