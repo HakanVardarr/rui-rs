@@ -25,21 +25,12 @@ impl Controller {
             maxrow,
         })
     }
-
     pub fn add_event(&mut self, code: KeyCode, b: bool, func: Func) {
-        if let Some(mut events) = self.events.events.take() {
-            for (c, _, _) in events.iter() {
-                if code == *c {
-                    self.events.events = Some(events);
-                    return;
-                }
-            }
-            events.push((code, b, func));
-            self.events.events = Some(events);
+        let events = self.events.events.get_or_insert_with(|| Vec::new());
+        if events.iter().any(|(c, _, _)| *c == code) {
+            return;
         } else {
-            let mut events = Vec::new();
             events.push((code, b, func));
-            self.events.events = Some(events);
         }
     }
 }

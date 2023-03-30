@@ -1,10 +1,8 @@
 use super::{Controller, Result};
 use crossterm::cursor::{MoveTo, Show};
-use crossterm::event::KeyCode;
-use crossterm::event::{read, Event, KeyEventKind};
+use crossterm::event::{read, Event, KeyCode, KeyEventKind};
 use crossterm::execute;
-use crossterm::style::Color::Reset;
-use crossterm::style::{SetBackgroundColor, SetForegroundColor};
+use crossterm::style::{Color::Reset, SetBackgroundColor, SetForegroundColor};
 use crossterm::terminal::{
     disable_raw_mode, Clear, ClearType::FromCursorDown, ClearType::FromCursorUp,
 };
