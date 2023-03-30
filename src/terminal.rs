@@ -1,12 +1,11 @@
 use super::{Controller, Result};
-use crossterm::cursor::{MoveTo, Show};
-use crossterm::event::{read, Event, KeyCode, KeyEventKind};
-use crossterm::execute;
-use crossterm::style::{Color::Reset, SetBackgroundColor, SetForegroundColor};
-use crossterm::terminal::{
-    disable_raw_mode, Clear, ClearType::FromCursorDown, ClearType::FromCursorUp,
+use crossterm::{
+    cursor::{MoveTo, Show},
+    event::{read, Event, KeyCode, KeyEventKind},
+    execute,
+    style::{Color::Reset, SetBackgroundColor, SetForegroundColor},
+    terminal::{disable_raw_mode, Clear, ClearType::FromCursorDown, ClearType::FromCursorUp},
 };
-
 use std::io::stdout;
 
 pub struct Terminal {
