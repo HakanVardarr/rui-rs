@@ -1,3 +1,4 @@
+use super::ui::Ui;
 use super::{Controller, Result};
 use crossterm::{
     cursor::{MoveTo, Show},
@@ -10,6 +11,7 @@ use std::io::stdout;
 
 pub struct Terminal {
     pub controller: Option<Controller>,
+    pub ui: Option<Ui>,
     pub col: u16,
     pub row: u16,
 }
@@ -18,6 +20,7 @@ impl Terminal {
     pub fn new(col: u16, row: u16) -> Self {
         Self {
             controller: None,
+            ui: None,
             col,
             row,
         }
@@ -28,8 +31,8 @@ impl Terminal {
                 execute!(stdout(), Clear(FromCursorUp), MoveTo(0, 0),)?;
                 Ok((0, 0))
             }),
-            maxcol,
-            maxrow,
+            maxcol - 1,
+            maxrow - 1,
         )?;
 
         controller.add_event(
@@ -104,6 +107,7 @@ impl Terminal {
 
         Ok(Self {
             controller: Some(controller),
+            ui: None,
             col: maxcol,
             row: maxrow,
         })
@@ -111,11 +115,16 @@ impl Terminal {
     pub fn add_controller(&mut self, c: Controller) {
         self.controller = Some(c);
     }
+    pub fn add_ui(&mut self, ui: Ui) {
+        self.ui = Some(ui);
+    }
     pub fn run(&mut self) -> Result<()> {
         if let Some(mut c) = self.controller.take() {
             let mut col = 0;
             let mut row = 0;
+
             'outer: loop {
+                self.ui.as_ref().unwrap().draw(col, row)?;
                 match read()? {
                     Event::Key(key) => {
                         for a in c.events.events.iter_mut() {
