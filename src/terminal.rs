@@ -60,7 +60,6 @@ impl Terminal {
                 if col < controller.maxcol {
                     col += 1;
                 }
-                execute!(stdout(), MoveTo(col, row))?;
 
                 Ok((col, row))
             }),
@@ -72,7 +71,6 @@ impl Terminal {
             Box::new(move |(mut col, row)| {
                 if col > 0 {
                     col -= 1;
-                    execute!(stdout(), MoveTo(col, row))?;
                 }
 
                 Ok((col, row))
@@ -85,7 +83,6 @@ impl Terminal {
             Box::new(move |(col, mut row)| {
                 if row > 0 {
                     row -= 1;
-                    execute!(stdout(), MoveTo(col, row))?;
                 }
 
                 Ok((col, row))
@@ -98,7 +95,6 @@ impl Terminal {
             Box::new(move |(col, mut row)| {
                 if row < controller.maxrow {
                     row += 1;
-                    execute!(stdout(), MoveTo(col, row))?;
                 }
 
                 Ok((col, row))
